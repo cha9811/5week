@@ -6,10 +6,12 @@ import com.forum.forum.dto.StatusResponse;
 import com.forum.forum.entity.Role;
 import com.forum.forum.entity.User;
 import com.forum.forum.repository.UserRepository;
+import com.forum.forum.security.UserDetailsImpl;
 import com.forum.forum.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +30,7 @@ public class UserController {
 //    private static final String ADMIN_TOKEN = "7ZWt7ZW0OTntmZTsnbTtjIXtlZzqta3snYTrhIjrqLjshLjqs4TroZzrgpjslYTqsIDsnpDtm4zrpa3tlZzqsJzrsJzsnpDrpbzrp4zrk6TslrTqsIDsnpA=";
 
     @PostMapping("/register")       //회원가입
-    public ResponseEntity<StatusResponse> register(@Valid @RequestBody RegisterRequest registerRequest){    //값은 body에서 가져오기
+    public ResponseEntity<StatusResponse> register(@Valid @RequestBody RegisterRequest registerRequest, @AuthenticationPrincipal UserDetailsImpl memberDetails){    //값은 body에서 가져오기
         StatusResponse user = userService.register(registerRequest);                                        //에러메세지 = 출력
         return new ResponseEntity<>(user, HttpStatus.valueOf(user.getStatusCode()));                        //에러코드 출력(여기선 정상 작동시 200)
     }

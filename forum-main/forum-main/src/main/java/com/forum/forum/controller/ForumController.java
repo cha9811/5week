@@ -33,12 +33,12 @@ public class ForumController {
         return forumService.getForum(id);
     }
 
-    @PatchMapping("/{id}")  //X번째 게시글 수정하기
-    public ForumResponse updateForum(@PathVariable Long id, @RequestBody ForumRequest forumRequest,HttpServletRequest request){
+    @PatchMapping("/update/{id}")  //X번째 게시글 수정하기
+    public ForumResponse updateForum(@PathVariable Long id, @RequestBody ForumRequest forumRequest,HttpServletRequest request){ //게시글 구분번호, 제목 및 내용,
         return forumService.updateForum(id,forumRequest,request);
     }
 
-    @DeleteMapping("/{id}") // X번째 게시글 삭제하기
+    @DeleteMapping("/delete/{id}") // X번째 게시글 삭제하기
     public ResponseEntity<StatusResponse> deleteForum(@PathVariable Long id, HttpServletRequest request){       //id와 requset를 파라미터 갖기
         StatusResponse forum = forumService.deleteForum(id,request);                        //에러메세지, 에러코드 산줄문 forum넣기
         return new ResponseEntity<>(forum, HttpStatus.valueOf(forum.getStatusCode()));

@@ -29,11 +29,8 @@ public class UserService {
         Optional<User> found = userRepository.findByUsername(username);     //신규 있는지 찾기 (없어도 문제 없도록 optional 사용)
         if (found.isPresent()) {throw new IllegalArgumentException("중복된 사용자가 존재합니다.");}     //
 
-        //public boolean isPresent() {
-        //        return value != null;     => 값이 있으면!
-        //    }
-
         User user = registerRequest.toEntity();             //저장하기
+
         userRepository.save(user);                          //회원가입성공(저장하기)
 
         return new StatusResponse("회원가입 완료", HttpStatus.OK.value());    //성공문출력, 200코드 출력

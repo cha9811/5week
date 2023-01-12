@@ -103,13 +103,13 @@ public class ForumService {
         String token = jwtUtil.resolveToken(request);                           //토큰값 받아오기
         Claims claims;                                                          //인터페이스 선언
         if (token != null) {                                                    //토큰이 있다면
-            if (jwtUtil.validateToken(token)) {claims = jwtUtil.getUserInfoFromToken(token);} else {throw new IllegalArgumentException("Token Error");} //토큰을 가져오기
+            if (jwtUtil.validateToken(token)) {claims = jwtUtil.getUserInfoFromToken(token);}else {throw new IllegalArgumentException("Token Error");} //토큰을 가져오기
             User user = userRepository.findByUsername(claims.getSubject()).orElseThrow(() -> new IllegalArgumentException("등록된 사용자가 없습니다."));   //
-
-            if (user.getRole().equals(ADMIN)) {forumRepository.deleteById(id);  //role이 admin인경우 삭제
+            if (user.getRole().equals(ADMIN)) {
+                forumRepository.deleteById(id);  //role이 admin인경우 삭제
             }else{
-                if (claims.getSubject().equals(forum.getUsername())) {forumRepository.deleteById(id);   //아닌경우 닉네임과 비교하여 삭제하기
-                }else{throw new IllegalArgumentException("접근 권한이 없습니다.");}
+                if (claims.getSubject().equals(forum.getUsername())) {forumRepository.deleteById(id);   //admin이 아닌경우 닉네임과 비교하여 삭제하기
+                }else{throw new IllegalArgumentException("관리자 권한이 없습니다.");}
 
             }return new StatusResponse("게시글 삭제 완료", HttpStatus.OK.value()); }else{return null;}
         }

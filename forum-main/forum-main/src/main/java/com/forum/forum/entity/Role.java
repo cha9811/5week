@@ -8,7 +8,6 @@ public enum Role {
 
     Role(String authority) {    //권한넣기
         this.authority = authority;
-        System.out.println(authority);
     }
 
     public String getAuthority() {  //권한가져오기

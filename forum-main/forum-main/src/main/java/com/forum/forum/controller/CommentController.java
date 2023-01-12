@@ -30,6 +30,7 @@ public class CommentController {
     public ResponseEntity<StatusResponse> deleteComment(@PathVariable Long id, @PathVariable Long commentId, HttpServletRequest request){
         StatusResponse comment = commentService.deleteComment(id,commentId,request);
         return new ResponseEntity<>(comment, HttpStatus.valueOf(comment.getStatusCode()));
+            //ResponseEntity(댓글, 상태코드 반환)
     }
 //    @DeleteMapping("/{commentId}")
 //    public StatusResponse deleteComment(@PathVariable Long id, @PathVariable Long commentId, HttpServletRequest request){

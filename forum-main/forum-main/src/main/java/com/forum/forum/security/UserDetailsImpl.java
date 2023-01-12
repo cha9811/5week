@@ -26,9 +26,9 @@ public class UserDetailsImpl implements UserDetails {
     }   //유저 데이터 받기
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        Role role = user.getRole();     //유저 권한 받기
-        String authority = role.getAuthority();     //유저 권한 받기
+    public Collection<? extends GrantedAuthority> getAuthorities() {    //권한갖기
+        Role role = user.getRole();                                     //유저 권한 받을 임시변수
+        String authority = role.getAuthority();
 
         SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(authority);
         Collection<GrantedAuthority> authorities = new ArrayList<>();
